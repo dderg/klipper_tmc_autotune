@@ -107,7 +107,9 @@ class AutotuneTMC:
 
         # Now find our stepper and driver in the running Klipper config
         self.name = config.get_name().split(None, 1)[-1]
-        if not config.has_section(self.name):
+        if not config.has_section(self.name) and not config.has_section(
+            "motor " + self.name
+        ):
             raise config.error(
                 "Could not find stepper config section '[%s]' required by TMC autotuning"
                 % (self.name)
